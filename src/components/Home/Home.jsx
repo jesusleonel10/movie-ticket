@@ -20,6 +20,7 @@ const Home = () => {
                         data.results && (
                             data.results.map((element) => {
                                 return <Movie 
+                                    id={element.id}
                                     key={uniqid()}
                                     poster={element.poster_path}
                                 />
