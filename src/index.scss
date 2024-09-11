@@ -45,6 +45,8 @@ button {
   background-color: #3e145e;
   cursor: pointer;
   transition: border-color 0.25s;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  
 }
 button:hover {
   border-color: #f87d54;

@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import useDataMovies from './../../hooks/useDataMovies.jsx'
 import formatTime from '../../functions/formatTime.jsx';
 import Cast from '../Cast/Cast.jsx';
+import { NavLink } from 'react-router-dom';
 import './Info.scss';
 
 const Info = () => {
@@ -12,6 +13,13 @@ const Info = () => {
     return (
         <>
             <div className='movie-info'>
+                <NavLink to={"/"}>
+                    <div className='btn-back'>
+                        <button>
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </NavLink>
                 <div className='movie-info__backdrop'>
                     <img src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`} alt="Imagen promocional de la pelicula" />
                 </div>
