@@ -17,7 +17,7 @@ const Movie = ({id, poster}) => {
 
 Movie.propTypes = {
     poster : PropTypes.string,
-    id : PropTypes.string
+    id : PropTypes.number
 }
  
 export default Movie;

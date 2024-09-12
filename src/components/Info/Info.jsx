@@ -33,18 +33,18 @@ const Info = () => {
                         />
                         :
                         (<>
-                            <h3 className='movie-info__title'>{data.original_title}</h3>
-                                <div className='movie-info__genres'>{data.genres && data.genres.slice(0,3).map((element, index) => {
-                                return <span key={index}>{element.name}</span>
-                            })}</div>
+                                <h3 className='movie-info__title'>{data.original_title}</h3>
+                                    <div className='movie-info__genres'>{data.genres && data.genres.slice(0,3).map((element, index) => {
+                                    return <span key={index}>{element.name}</span>
+                                })}</div>
                                 <span className='movie-info__runtime'>{formatTime(data.runtime)}</span>
                                 <p className='movie-info__overview'>{data.overview}</p>
                                 <div className='movie-info__cast'>
                                     <h4>Reparto</h4>
-                                    <Cast
-                                        idMovie={id}
-                                    />
-                                </div>
+                                        <Cast
+                                            idMovie={id}
+                                        />
+                                    </div>
                                 <button className='movie-info__btn'>Comprar Boleto</button>
                         </>)
                     }
