@@ -1,20 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Info from './components/Info/Info'
+import { BrowserRouter } from 'react-router-dom';
+import AnimatedRoutes from './components/AnimatedRoutes/AnimatedRoutes';
 import './App.scss'
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={
-            <Home />
-          } />  
-          <Route path='/info/:id' element={
-            <Info />
-          } />
-        </Routes>
+        <AnimatedRoutes />
       </BrowserRouter>
     </>
   );

@@ -4,6 +4,7 @@ import formatTime from '../../functions/formatTime.jsx';
 import Cast from '../Cast/Cast.jsx';
 import BtnBack from '../BtnBack/BtnBack.jsx';
 import Loading from './../Loading/Loading.jsx'
+import { motion } from 'framer-motion'
 import './Info.scss';
 
 const Info = () => {
@@ -13,26 +14,44 @@ const Info = () => {
     const { data, loading } = useDataMovies(`https://api.themoviedb.org/3/movie/${id}?language=es-MX`, true)
     return (
         <>
-            <div className='movie-info'>
-                <BtnBack 
-                    href={'/'}
-                />
-                <div className='movie-info__backdrop'>
-                    {
-                        loading ?
-                        <div className='loading_backdrop'></div>
-                        :
-                        <img src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`} alt="Imagen promocional de la película" />
-                    }
-                </div>
-                <div className='movie-info__details'>
-                    {
-                        loading ?
-                        <Loading 
-                            color={'#000'}
+            <motion.div 
+                className='movie-info'
+                initial={{ y : 100 }}
+                animate={{ y : 0 }}
+                exit={{ y : '100vh' }}
+                >
+                <>
+                    <motion.div 
+                        className='movie-info__backdrop' 
+                        initial={{ y : 100 }}
+                        animate={{ y : 0 }}
+                        exit={{ y : '100vh' }}
+                        transition={{ duration: .1 }}
+                        >
+
+                        <BtnBack 
+                            href={'/'}
                         />
-                        :
-                        (<>
+                        <img src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`} alt="Imagen promocional de la película" />
+                   
+                    </motion.div>
+
+                    { loading ?
+                    <Loading 
+                        color={'#000'}
+                    />
+                    :
+
+                    <motion.div 
+                        className='movie-info__details'
+                        initial={{ y : 50 }}
+                        animate={{ y : 0 }}
+                        exit={{ y : '100vh' }}   
+                        transition={{ duration: .2 }}
+
+                    >
+                        {
+                            <>
                                 <h3 className='movie-info__title'>{data.original_title}</h3>
                                     <div className='movie-info__genres'>{data.genres && data.genres.slice(0,3).map((element, index) => {
                                     return <span key={index}>{element.name}</span>
@@ -46,10 +65,12 @@ const Info = () => {
                                         />
                                     </div>
                                 <button className='movie-info__btn'>Comprar Boleto</button>
-                        </>)
+                            </>
+                        }
+                    </motion.div> 
                     }
-                </div>
-            </div>
+                </>
+            </motion.div>
         </>
     );
 }

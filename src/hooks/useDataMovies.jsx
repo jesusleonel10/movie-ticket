@@ -42,7 +42,7 @@ const useFetchData = (url, flag) => {
             //Usamos 300 como un tiempo minimo para mostrar la animacion, esto mas que nada cuando se hace una misma consulta dos veces
             setTimeout(() => {
                 setLoading(false)
-            }, 300);
+            }, 500);
             //Aqui le paso el valor que recibi por prop
             // setChangeFlag(flagDetails)
         }
