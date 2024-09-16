@@ -1,8 +1,8 @@
 .check {
     cursor: pointer;
     background-color: transparent;
-    width: 20px;
-    height: 20px;
+    width: 1.5rem;
+    height: 1.5rem;
     appearance: none;
     border-radius: .2rem;
     border: 1px solid #fdfdfd;
@@ -14,3 +14,8 @@
     border: transparent;
     background-color: #f87d54;
 }
+
+.check:disabled {
+    background-color: #fdfdfd;
+}
+

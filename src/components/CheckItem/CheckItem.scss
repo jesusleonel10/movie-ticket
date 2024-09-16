@@ -1,0 +1,42 @@
+.checkcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 4rem;
+    height: 2rem;
+    span {
+        color: #bbb;
+        font-weight: bold;
+        font-size: .9rem;
+    }
+    .checkitem {
+        position: absolute;
+        top: 0;
+        left: 0;
+        appearance: none;
+        cursor: pointer;
+        background: transparent;
+        width: 4rem;
+        height: 2rem;
+        margin: 0;
+        border: 2px solid #bbb;
+        border-radius: .2rem;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    .checkitem:checked {
+        border: 2px solid #f87d54;
+    }
+
+    .checkitem:checked ~ label span{
+        color: #f87d54;
+    }
+    
+    .checkitem:disabled {
+        background-color: #fdfdfd;
+    }
+}
+
+
