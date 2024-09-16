@@ -1,0 +1,16 @@
+.check {
+    cursor: pointer;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    border-radius: .2rem;
+    border: 1px solid #fdfdfd;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.check:checked {
+    border: transparent;
+    background-color: #f87d54;
+}

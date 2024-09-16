@@ -21,6 +21,7 @@ const Home = () => {
             >
                 <div className="movies-list__logo">
                     <img src={Logo} alt="Logo del cine" />
+                    <span>Cineteca</span>
                 </div>
                 <h2 className='movies-list__title'>Cartelera</h2>
             </motion.div>

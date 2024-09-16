@@ -1,5 +1,7 @@
 .movies-list {
     position: relative;
+    padding-top: 10rem;
+
     &__header {
     position: fixed;
     top: 0;
@@ -12,7 +14,16 @@
     }
 
     &__logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 2rem 0;
+        gap: .6rem;
+        span {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
     }
 
     &__title {
@@ -30,7 +41,6 @@
         padding: 1.8rem;
         border-radius: 3rem 3rem 0 0;
         margin: 0 auto;
-        margin-top: 10rem;
         z-index: 2;
         @media (max-width: 768px) {
             grid-template-columns: repeat(auto-fit, 9rem);

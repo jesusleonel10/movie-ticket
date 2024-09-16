@@ -6,7 +6,7 @@ import './Movie.scss'
 const Movie = ({id, poster}) => {
     return (
         <>
-            <NavLink to={`/info/${id}`}>
+            <NavLink to={`/movie/${id}`}>
                 <div className="movies-list__poster">
                     <img alt="Poster de la pelicula" src={`https://image.tmdb.org/t/p/w500/${poster}`}></img>
                 </div>

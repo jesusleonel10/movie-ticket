@@ -1,0 +1,47 @@
+.seats {
+    background: rgba(142,53,204,1);
+    height: 60vh;
+    border-radius: 3rem 3rem 0 0;
+    padding: 1rem 3rem;
+    &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 5rem;
+        margin-bottom: 3rem;
+        h3 {
+            color: #fdfdfd;
+            margin: 0;
+            font-weight: 500;
+        }
+    }
+    &__caption {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .5rem;
+        margin-top: 3rem;
+        .selected {
+            color: #f87d54;
+        }
+        .reserved {
+            color: #fdfdfd;
+        }
+        .available {
+            color: #fdfdfd;
+        }
+        i {
+            font-size: .9rem;
+        }
+        span {
+            margin-right: .6rem;
+            font-size: .9rem;
+            color: #fdfdfd;
+        }
+    }
+    &__items {
+        display: flex;
+        margin: 0;
+    }
+}

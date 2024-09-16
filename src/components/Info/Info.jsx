@@ -4,13 +4,13 @@ import formatTime from '../../functions/formatTime.jsx';
 import Cast from '../Cast/Cast.jsx';
 import BtnBack from '../BtnBack/BtnBack.jsx';
 import Loading from './../Loading/Loading.jsx'
+import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion'
 import './Info.scss';
 
 const Info = () => {
     //Obtengo el id de la ruta
     const { id } = useParams();
-
     const { data, loading } = useDataMovies(`https://api.themoviedb.org/3/movie/${id}?language=es-MX`, true)
     return (
         <>
@@ -64,7 +64,9 @@ const Info = () => {
                                             idMovie={id}
                                         />
                                     </div>
-                                <button className='movie-info__btn'>Comprar Boleto</button>
+                                    <NavLink to={`/schedules/${id}`}>
+                                        <button className='movie-info__btn'>Comprar Boleto</button>
+                                    </NavLink>
                             </>
                         }
                     </motion.div> 
