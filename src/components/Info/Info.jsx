@@ -12,6 +12,7 @@ const Info = () => {
     //Obtengo el id de la ruta
     const { id } = useParams();
     const { data, loading } = useDataMovies(`https://api.themoviedb.org/3/movie/${id}?language=es-MX`, true)
+    
     return (
         <>
             <motion.div 

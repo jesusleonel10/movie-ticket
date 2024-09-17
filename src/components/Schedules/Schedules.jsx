@@ -5,6 +5,7 @@ import BtnBack from '../BtnBack/BtnBack';
 import Seat from '../Seat/Seat';
 import CheckItem from '../CheckItem/CheckItem';
 import uniqid from 'uniqid'
+import formatDate from '../../functions/formatDate';
 import './Schedules.scss'
 
 const Schedules = () => {
@@ -66,58 +67,104 @@ const Schedules = () => {
 
                 ]
             },
-            dates: ['21 Feb', '22 Feb', '23 Feb', '24 Feb'],
-            times: ['15:15', '17:45', '20:35', '22:15']
+            // dates: ['21 Feb', '22 Feb', '23 Feb', '24 Feb'],
+            // times: ['15:15', '17:45', '20:35', '22:15']
+            dates: [
+                {   
+                    id: uniqid(),
+                    date: '2024-02-21',
+                    times: [ '10:15', '15:15', '17:45', '20:35', '22:15']
+                },
+                {   
+                    id: uniqid(),
+                    date: '2024-02-22',
+                    times: ['13:15', '15:15', '17:45', '20:35', '22:15']
+                },
+                {   
+                    id: uniqid(),
+                    date: '2024-02-23',
+                    times: ['11:15', '15:15', '17:45', '20:35', '22:15']
+                },
+                {   
+                    id: uniqid(),
+                    date: '2024-02-24',
+                    times: ['15:15', '17:45', '20:35', '22:15']
+                }
+            ]
         }
     );
+
+    const [timesSelected, setTimesSelected] = useState(null);
+
     const { id } = useParams();
 
     return (
         <>
             <div className='seats-schedules'>
-                <div className='seats'>
-                    <div className='seats__header'>
-                        <BtnBack 
-                            href={`/movie/${id}`}
-                        />
-                        <h3 className='seats__title'>Escoge tus asientos</h3>
-                    </div>
-                    <div className="seats__items">
-                        <form action="#">
-                                {theater && theater.seats.list.map((item) => {
+                <form action="#">
+                    <div className='seats'>
+                        <div className='seats__header'>
+                            <BtnBack 
+                                href={`/movie/${id}`}
+                            />
+                            <h3 className='seats__title'>Escoge tus asientos</h3>
+                        </div>
+                        <div className="seats__items">
+                                {theater && theater.seats.list.map((seat) => {
                                     return <Seat 
                                                 key={uniqid()}
-                                                id={item.id}
-                                                available={item.available}
-
+                                                id={seat.id}
+                                                available={seat.available}
                                             />
                                 })}
-                        </form>
-                    </div>
-                    <div className="seats__caption">
-                        <i className="fa-solid fa-square selected"></i><span>Seleccionado</span>
-                        <i className="fa-solid fa-square reserved"></i><span>Reservado</span>
-                        <i className="fa-regular fa-square available"></i><span>Disponible</span> 
-                    </div>
-                </div>
-
-                <div className="schedules">
-                    <div className="schedules__dates">
-                        <h4>Fechas</h4>
-                        <div className="dates">
-                            <CheckItem />
+                            
+                        </div>
+                        <div className="seats__caption">
+                            <i className="fa-solid fa-square selected"></i><span>Seleccionado</span>
+                            <i className="fa-solid fa-square reserved"></i><span>Reservado</span>
+                            <i className="fa-regular fa-square available"></i><span>Disponible</span> 
                         </div>
                     </div>
-                    <div className="schedules__time">
-                        <h4>Hora</h4>
-                        <div className="times">
 
+                    <div className="schedules">
+                        <div className="schedules__dates">
+                            <h4>Fecha</h4>
+                            <div className="dates">
+                                {
+                                    theater && theater.dates.map((d) => {
+                                        return <CheckItem 
+                                                    key={uniqid()}
+                                                    id={d.id}
+                                                    string={formatDate(d.date)}
+                                                    type={'date'}
+                                                    times={d.times}
+                                                    timesSelected={timesSelected}
+                                                    setTimesSelected={setTimesSelected}
+                                                />
+                                    })
+                                }
+                            </div>
                         </div>
+                        <div className="schedules__time">
+                            <h4>Hora</h4>
+                            <div className="times">
+                                {
+                                    timesSelected && timesSelected.map((t) => {
+                                        return <CheckItem 
+                                                    key={uniqid()}
+                                                    id={uniqid()}
+                                                    string={t}
+                                                    type={'times'}
+                                                />
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <NavLink to={`/schedules/${id}`}>
+                            <button className=''>Pagar</button>
+                        </NavLink>
                     </div>
-                    <NavLink to={`/schedules/${id}`}>
-                        <button className=''>Pagar</button>
-                    </NavLink>
-                </div>
+                </form>
             </div>
         </>
     );

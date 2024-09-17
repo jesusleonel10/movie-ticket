@@ -47,21 +47,37 @@
         &__items {
             margin: 0;
             padding: .5rem 3rem;
-            form {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: .2rem;
-                justify-content: center;
-                align-items: center;
-            }
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: .2rem;
+            justify-content: center;
+            align-items: center;
         }
     }
     
     .schedules {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
         position: relative;
         background-color: #fff;
         border-radius: 3rem 3rem 0 0;
-    
+        padding: 2rem;
+        
+        .dates, .times {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        
+        
+        
+         h4 {
+            text-align: left;
+            margin: 0 0 .8rem;
+         }
     }
 }
