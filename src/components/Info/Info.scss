@@ -2,6 +2,9 @@
     background: #fff;
     border-radius: 3rem 3rem 0 0;  
     padding-top: 10rem;
+    @media (width > 768px) {
+        padding-top: 20rem;
+    }
     &__backdrop {
         position: fixed;
         width: 100%;
@@ -29,7 +32,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: start;
         gap: 1rem;
         padding: 1.5rem;
         border-radius: 3rem 3rem 0 0;  
@@ -39,6 +41,8 @@
     &__title {
         font-size: 2rem;
         margin: 0;
+        margin-right: auto;
+
     }
 
     &__genres {
@@ -47,6 +51,10 @@
         margin-right: auto;
         gap: .5rem;
         font-weight: 500;
+    }
+
+    &__runtime {
+        margin-right: auto;
     }
 
     &__overview {
@@ -59,10 +67,13 @@
     }
 
     &__btn {
-        margin: 1rem 0;
+        width: 100%;
         background-color: #f87d54;
         color: #fff;
         margin: 0 auto;
+        @media (width > 768px) {
+            width: inherit;
+        }
         &:hover {
             background-color: #fc9979;
         }

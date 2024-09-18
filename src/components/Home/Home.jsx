@@ -13,7 +13,7 @@ const Home = () => {
         <div className="movies-list">
             <motion.div 
                 className="movies-list__header"
-
+                key={"header"}
                 initial={{ y : 100 }}
                 animate={{ y : 0 }}
                 exit={{ y : '100vh' }}
@@ -33,7 +33,7 @@ const Home = () => {
                 :          
                 <motion.div 
                     className='movies-list__posters'
-
+                    key={"posters"}
                     initial={{ y : 100 }}
                     animate={{ y : 0 }}
                     exit={{ y : '100vh' }}

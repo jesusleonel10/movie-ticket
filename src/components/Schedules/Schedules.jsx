@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import BtnBack from '../BtnBack/BtnBack';
 import Seat from '../Seat/Seat';
 import CheckItem from '../CheckItem/CheckItem';
@@ -67,8 +68,6 @@ const Schedules = () => {
 
                 ]
             },
-            // dates: ['21 Feb', '22 Feb', '23 Feb', '24 Feb'],
-            // times: ['15:15', '17:45', '20:35', '22:15']
             dates: [
                 {   
                     id: uniqid(),
@@ -98,36 +97,54 @@ const Schedules = () => {
 
     const { id } = useParams();
 
-    return (
-        <>
-            <div className='seats-schedules'>
-                <form action="#">
-                    <div className='seats'>
-                        <div className='seats__header'>
-                            <BtnBack 
-                                href={`/movie/${id}`}
-                            />
-                            <h3 className='seats__title'>Escoge tus asientos</h3>
-                        </div>
-                        <div className="seats__items">
-                                {theater && theater.seats.list.map((seat) => {
-                                    return <Seat 
-                                                key={uniqid()}
-                                                id={seat.id}
-                                                available={seat.available}
-                                            />
-                                })}
-                            
-                        </div>
-                        <div className="seats__caption">
-                            <i className="fa-solid fa-square selected"></i><span>Seleccionado</span>
-                            <i className="fa-solid fa-square reserved"></i><span>Reservado</span>
-                            <i className="fa-regular fa-square available"></i><span>Disponible</span> 
-                        </div>
-                    </div>
+    const containerVariants = {
+        hidden: { y: 100 },
+        visible: { y: 0 },
+        exit: { y : '100vh' },
+    };
 
-                    <div className="schedules">
-                        <div className="schedules__dates">
+    return (
+            <motion.div 
+                className='seats-schedules'
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={containerVariants}
+                >
+                    <form>
+                        <motion.div 
+                            className='seats'
+                            variants={containerVariants}
+                            transition={{ delay: .4 }} 
+                            >
+                            <div className='seats__header'>
+                                <BtnBack 
+                                    href={`/movie/${id}`}
+                                />
+                                <h3 className='seats__title'>Escoge tus asientos</h3>
+                            </div>
+                            <div className="seats__items">
+                                    {theater && theater.seats.list.map((seat) => {
+                                        return <Seat 
+                                                    key={uniqid()}
+                                                    id={seat.id}
+                                                    available={seat.available}
+                                                />
+                                    })}
+                                
+                            </div>
+                            <div className="seats__caption">
+                                <i className="fa-solid fa-square selected"></i><span>Seleccionado</span>
+                                <i className="fa-solid fa-square reserved"></i><span>Reservado</span>
+                                <i className="fa-regular fa-square available"></i><span>Disponible</span> 
+                            </div>
+                        </motion.div>
+
+                        <motion.div 
+                            className="schedules"
+                            variants={containerVariants}
+                            transition={{ delay: .5, duration: .5 }}
+                            >
                             <h4>Fecha</h4>
                             <div className="dates">
                                 {
@@ -144,29 +161,29 @@ const Schedules = () => {
                                     })
                                 }
                             </div>
-                        </div>
-                        <div className="schedules__time">
                             <h4>Hora</h4>
                             <div className="times">
                                 {
-                                    timesSelected && timesSelected.map((t) => {
+                                    timesSelected ? 
+                                    (timesSelected.map((t) => {
                                         return <CheckItem 
                                                     key={uniqid()}
                                                     id={uniqid()}
                                                     string={t}
                                                     type={'times'}
+                                    
                                                 />
-                                    })
+                                    }))
+                                    :
+                                    (<span>Selecciona alguna fecha</span>)
                                 }
                             </div>
-                        </div>
-                        <NavLink to={`/schedules/${id}`}>
-                            <button className=''>Pagar</button>
-                        </NavLink>
-                    </div>
-                </form>
-            </div>
-        </>
+                    
+                            <button className='btn-pay'>Pagar</button>
+                        
+                        </motion.div>
+                    </form>
+            </motion.div>
     );
 }
  

@@ -15,19 +15,14 @@ const Info = () => {
     
     return (
         <>
-            <motion.div 
-                className='movie-info'
-                initial={{ y : 100 }}
-                animate={{ y : 0 }}
-                exit={{ y : '100vh' }}
-                >
-                <>
+            <div className='movie-info'>
                     <motion.div 
                         className='movie-info__backdrop' 
+                        key={"backdrop"}
                         initial={{ y : 100 }}
                         animate={{ y : 0 }}
                         exit={{ y : '100vh' }}
-                        transition={{ duration: .1 }}
+                        transition={{ duration: .2 }}
                         >
 
                         <BtnBack 
@@ -45,10 +40,11 @@ const Info = () => {
 
                     <motion.div 
                         className='movie-info__details'
+                        key={"details"}
                         initial={{ y : 50 }}
                         animate={{ y : 0 }}
                         exit={{ y : '100vh' }}   
-                        transition={{ duration: .2 }}
+                        transition={{ duration: .3 }}
 
                     >
                         {
@@ -72,8 +68,7 @@ const Info = () => {
                         }
                     </motion.div> 
                     }
-                </>
-            </motion.div>
+            </div>
         </>
     );
 }

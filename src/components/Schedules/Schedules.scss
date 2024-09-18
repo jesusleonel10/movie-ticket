@@ -1,9 +1,12 @@
 .seats-schedules {
-    padding-top: 21rem;
+    position: relative;
+    background-color: #fff;
+    padding-top: 22rem;
     .seats {
         position: fixed;
         width: 100%;
         top: 0;
+        z-index: 1;
         background: linear-gradient(rgb(106, 53, 204), #8e35cc) ;
         height: 70vh;
         border-radius: 3rem 3rem 0 0;
@@ -25,7 +28,7 @@
             justify-content: center;
             align-items: center;
             gap: .5rem;
-            margin-top: .5rem;
+            margin: .5rem 0;
             .selected {
                 color: #f87d54;
             }
@@ -39,32 +42,33 @@
                 font-size: .9rem;
             }
             span {
-                margin-right: .6rem;
+                margin-right: .2rem;
                 font-size: .9rem;
                 color: #fdfdfd;
             }
         }
         &__items {
-            margin: 0;
-            padding: .5rem 3rem;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            gap: .2rem;
             justify-content: center;
             align-items: center;
+            gap: .2rem;
+            margin: 0 auto;
+            padding: .5rem 1.5rem;
+            width: 20rem;
         }
     }
     
     .schedules {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        position: relative;
         background-color: #fff;
+        gap: 1rem;
         border-radius: 3rem 3rem 0 0;
-        padding: 2rem;
-        
+        padding: 1.5rem;
+        z-index: 2;
         .dates, .times {
             display: flex;
             flex-direction: row;
@@ -73,11 +77,20 @@
         }
         
         
-        
-        
          h4 {
             text-align: left;
-            margin: 0 0 .8rem;
+            margin: 0 0 .4rem;
          }
+    }
+
+    .btn-pay {
+        width: 100%;
+        margin: 0 auto;
+        color: #fff;
+        margin-top: 1rem;
+        background-color: #1c1c46;
+        @media (width > 768px) {
+            width: inherit;
+        }
     }
 }

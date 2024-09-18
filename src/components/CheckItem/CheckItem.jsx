@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 
 const CheckItem = ({id, string, type, times, timesSelected, setTimesSelected}) => {
 
-    const handleChange = (arr) => {
-        setTimesSelected(arr)
+    const handleChange = () => {
+        if(times) {
+            setTimesSelected(times)
+        }   
     }
-
     return (
         <>
             <div className='checkcontainer'>
@@ -18,8 +19,12 @@ const CheckItem = ({id, string, type, times, timesSelected, setTimesSelected}) =
                     value={string} 
                     //Al ejecutar handleChange dateSelect pasa a ser igual a times
                     //De esa manera hago que este checked la casilla al darle click
-                    onChange={() => handleChange(times)} 
-                    checked={timesSelected === times} />
+                    //Si times no esta definido simplemente devuelvo null para el segundo grupo de input radio 
+                    onChange={() => handleChange()} 
+                    checked={ times ?
+                        timesSelected === times 
+                        : null
+                    } />
                 <label htmlFor={id}>
                     <span>{string}</span>
                 </label>
