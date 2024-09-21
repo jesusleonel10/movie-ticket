@@ -1,5 +1,7 @@
 import './CheckItem.scss'
 import PropTypes from 'prop-types'
+import formatDate from '../../functions/formatDate';
+
 
 const CheckItem = ({id, string, type, times, timesSelected, setTimesSelected}) => {
 
@@ -24,9 +26,11 @@ const CheckItem = ({id, string, type, times, timesSelected, setTimesSelected}) =
                     checked={ times ?
                         timesSelected === times 
                         : null
-                    } />
+                    } 
+                    required
+                    />
                 <label htmlFor={id}>
-                    <span>{string}</span>
+                    <span>{type === 'date' ? formatDate(string) : string}</span>
                 </label>
             </div>
         </>

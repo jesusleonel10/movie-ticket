@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { TicketContext } from '../../context/ticket';
 import BtnBack from '../BtnBack/BtnBack';
 import Seat from '../Seat/Seat';
 import CheckItem from '../CheckItem/CheckItem';
 import uniqid from 'uniqid'
-import formatDate from '../../functions/formatDate';
 import './Schedules.scss'
 
 const Schedules = () => {
@@ -93,58 +92,89 @@ const Schedules = () => {
         }
     );
 
+    const {ticket, setTicket} = useContext(TicketContext)
+
     const [timesSelected, setTimesSelected] = useState(null);
 
     const { id } = useParams();
 
-    const containerVariants = {
-        hidden: { y: 100 },
-        visible: { y: 0 },
-        exit: { y : '100vh' },
-    };
+    const validateCheckbox = () => {
+        const checkboxs = document.querySelectorAll('input[type="checkbox"]')
+        let selected = false
+
+        checkboxs.forEach(checkbox => {
+            if(checkbox.checked) {
+                selected = true
+            }
+        })
+        
+        if (!selected) {
+            alert('Debe seleccionar un asiento')
+        }
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        validateCheckbox()
+
+        const formElement = event.target;
+        //Obtengo los datos del formulario
+        const formData = new FormData(formElement);
+        //Obtengo el array de los asientos
+        const checkboxes = formData.getAll('seat')
+        //Obtengo el resto de inputs
+        const radios = Object.fromEntries(formData);
+        //Combino ambos objetos
+        const schedules_seats = {
+            ...radios,
+            seat: checkboxes
+        }
+        //Actualizo el estado conservando lo anterior
+        const newState = {
+            ...ticket,
+            schedules_seats
+        }
+
+        setTicket(newState)
+    }
 
     return (
-            <motion.div 
-                className='seats-schedules'
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                variants={containerVariants}
-                >
-                    <form>
-                        <motion.div 
-                            className='seats'
-                            variants={containerVariants}
-                            transition={{ delay: .4 }} 
+        <> 
+            <div 
+                className="seats-schedules"
+            >
+                    <form id='form' onSubmit={(e) => handleSubmit(e)}>
+                            <div 
+                                className='seats'
+                            
                             >
-                            <div className='seats__header'>
-                                <BtnBack 
-                                    href={`/movie/${id}`}
-                                />
-                                <h3 className='seats__title'>Escoge tus asientos</h3>
+                                <div className='seats__header'>
+                                    <BtnBack 
+                                        href={`/movie/${id}`}
+                                    />
+                                    <h3 className='seats__title'>Escoge tus asientos</h3>
+                                </div>
+                                <div className="seats__items">
+                                        {theater && theater.seats.list.map((seat) => {
+                                            return <Seat 
+                                                        key={uniqid()}
+                                                        id={seat.id}
+                                                        available={seat.available}
+                                                    />
+                                        })}
+                                    
+                                </div>
+                                <div className="seats__caption">
+                                    <i className="fa-solid fa-square selected"></i><span>Seleccionado</span>
+                                    <i className="fa-solid fa-square reserved"></i><span>Reservado</span>
+                                    <i className="fa-regular fa-square available"></i><span>Disponible</span> 
+                                </div>
                             </div>
-                            <div className="seats__items">
-                                    {theater && theater.seats.list.map((seat) => {
-                                        return <Seat 
-                                                    key={uniqid()}
-                                                    id={seat.id}
-                                                    available={seat.available}
-                                                />
-                                    })}
+                            
+                            <div 
+                                className='schedules'
                                 
-                            </div>
-                            <div className="seats__caption">
-                                <i className="fa-solid fa-square selected"></i><span>Seleccionado</span>
-                                <i className="fa-solid fa-square reserved"></i><span>Reservado</span>
-                                <i className="fa-regular fa-square available"></i><span>Disponible</span> 
-                            </div>
-                        </motion.div>
-
-                        <motion.div 
-                            className="schedules"
-                            variants={containerVariants}
-                            transition={{ delay: .5, duration: .5 }}
-                            >
+                                >
                             <h4>Fecha</h4>
                             <div className="dates">
                                 {
@@ -152,7 +182,7 @@ const Schedules = () => {
                                         return <CheckItem 
                                                     key={uniqid()}
                                                     id={d.id}
-                                                    string={formatDate(d.date)}
+                                                    string={d.date}
                                                     type={'date'}
                                                     times={d.times}
                                                     timesSelected={timesSelected}
@@ -170,8 +200,7 @@ const Schedules = () => {
                                                     key={uniqid()}
                                                     id={uniqid()}
                                                     string={t}
-                                                    type={'times'}
-                                    
+                                                    type={'time'}
                                                 />
                                     }))
                                     :
@@ -179,11 +208,12 @@ const Schedules = () => {
                                 }
                             </div>
                     
-                            <button className='btn-pay'>Pagar</button>
+                            <button className='btn-pay' type='submit' value='submit' >Pagar</button>
+                        </div>
                         
-                        </motion.div>
-                    </form>
-            </motion.div>
+                </form>
+            </div>
+        </>
     );
 }
  
