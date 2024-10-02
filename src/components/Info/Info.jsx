@@ -7,6 +7,7 @@ import Cast from '../Cast/Cast.jsx';
 import BtnBack from '../BtnBack/BtnBack.jsx';
 import Loading from './../Loading/Loading.jsx'
 import { NavLink } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Info.scss';
 
 const Info = () => {
@@ -26,49 +27,54 @@ const Info = () => {
         )
     }
     return (
-        <>
-            <div className='movie-info'>
+        <AnimatePresence>
+            <motion.div 
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: window.innerHeight }}
+                transition={{ delay: .1, duration: .2 }}
+                className='movie-info'>
                     <div className='movie-info__backdrop'>
 
                         <BtnBack 
-                            href={'/home'}
+                            href={'/'}
                         />
                         <img src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`} alt="Imagen promocional de la película" />
                    
                     </div>
 
+                    <motion.div 
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: window.innerHeight }}
+                        transition={{ delay: .2, duration: .3 }}
+                        className='movie-info__details'>
                     { loading ?
-                    <div className='movie-info__details'>
                         <Loading 
                             color={'#000'}
                         />
-                    </div>
                     :
-
-                    <div className='movie-info__details'>
-                        {
-                            <>
-                                <h3 className='movie-info__title'>{data.original_title}</h3>
-                                    <div className='movie-info__genres'>{data.genres && data.genres.slice(0,3).map((element, index) => {
-                                    return <span key={index}>{element.name}</span>
-                                })}</div>
-                                <span className='movie-info__runtime'>{formatTime(data.runtime)}</span>
-                                <p className='movie-info__overview'>{data.overview}</p>
-                                <div className='movie-info__cast'>
-                                    <h4>Reparto</h4>
-                                        <Cast
-                                            idMovie={id}
-                                        />
-                                    </div>
-                                <NavLink to={`/schedules/${id}`}>
-                                    <button className='movie-info__btn' onClick={() => handleClick(id, data.title, formatTime(data.runtime))} >Comprar Boleto</button>
-                                </NavLink>
-                            </>
-                        }
-                    </div> 
+                        <>
+                            <h3 className='movie-info__title'>{data.original_title}</h3>
+                                <div className='movie-info__genres'>{data.genres && data.genres.slice(0,3).map((element, index) => {
+                                return <span key={index}>{element.name}</span>
+                            })}</div>
+                            <span className='movie-info__runtime'>{formatTime(data.runtime)}</span>
+                            <p className='movie-info__overview'>{data.overview}</p>
+                            <div className='movie-info__cast'>
+                                <h4>Reparto</h4>
+                                    <Cast
+                                        idMovie={id}
+                                    />
+                                </div>
+                            <NavLink to={`/schedules/${id}`}>
+                                <button className='movie-info__btn' onClick={() => handleClick(id, data.title, formatTime(data.runtime))} >Comprar Boleto</button>
+                            </NavLink>
+                        </>
                     }
-            </div>
-        </>
+                    </motion.div> 
+            </motion.div>
+        </AnimatePresence>
     );
 }
  

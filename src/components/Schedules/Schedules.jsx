@@ -6,6 +6,7 @@ import BtnBack from '../BtnBack/BtnBack';
 import Seat from '../Seat/Seat';
 import CheckItem from '../CheckItem/CheckItem';
 import uniqid from 'uniqid'
+import { motion } from 'framer-motion';
 import './Schedules.scss'
 
 const Schedules = () => {
@@ -139,15 +140,15 @@ const Schedules = () => {
     }
 
     return (
-        <> 
-            <div 
+            <motion.div 
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: window.innerHeight }}
+                transition={{ delay: .1, duration: .2 }}
                 className="seats-schedules"
             >
                     <form id='form' onSubmit={(e) => handleSubmit(e)}>
-                            <div 
-                                className='seats'
-                            
-                            >
+                            <div className='seats'>
                                 <div className='seats__header'>
                                     <BtnBack 
                                         href={`/movie/${id}`}
@@ -171,10 +172,12 @@ const Schedules = () => {
                                 </div>
                             </div>
                             
-                            <div 
-                                className='schedules'
-                                
-                                >
+                            <motion.div 
+                                initial={{ y: 100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: window.innerHeight }}
+                                transition={{ delay: .2, duration: .3 }}
+                                className='schedules'>
                             <h4>Fecha</h4>
                             <div className="dates">
                                 {
@@ -209,11 +212,10 @@ const Schedules = () => {
                             </div>
                     
                             <button className='btn-pay' type='submit' value='submit' >Pagar</button>
-                        </div>
+                        </motion.div>
                         
                 </form>
-            </div>
-        </>
+            </motion.div>
     );
 }
  
