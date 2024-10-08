@@ -66,16 +66,23 @@
                     display: flex;
                     flex-flow: row wrap;
                     gap: 1.1em;
+                    width: 100%;
                     justify-content: space-between;
-                    padding: 0 1rem;
                     margin-bottom: 2em;
                     &__number {
+                        padding-left: 1rem;
+                        text-align: left;
+                        width: 100%;
                         letter-spacing: 3px;
                     }
                     &__name,
                     &__date {
                         font-size: .7em;
                         text-transform: uppercase;
+                        padding-right: 1rem;
+                    }
+                    &__name {
+                        padding-left: 1rem;
                     }
                 }
             }
@@ -317,7 +324,7 @@
                 color: #fff;
             }
             
-            .check {
+            .check-success {
                 position: absolute;
                 display: block;
                 width: 25px;
@@ -355,4 +362,8 @@
             }
         }
     }
+}
+
+@keyframes spin {
+	100% {transform: rotate(360deg)}
 }
