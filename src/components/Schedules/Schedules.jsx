@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { TicketContext } from '../../context/ticket';
 import BtnBack from '../BtnBack/BtnBack';
 import Seat from '../Seat/Seat';
@@ -99,6 +98,8 @@ const Schedules = () => {
 
     const { id } = useParams();
 
+    const navigate = useNavigate()
+
     const validateCheckbox = () => {
         const checkboxs = document.querySelectorAll('input[type="checkbox"]')
         let selected = false
@@ -111,32 +112,42 @@ const Schedules = () => {
         
         if (!selected) {
             alert('Debe seleccionar un asiento')
+            return false
         }
+
+        else return true
+    }
+
+    const getDataInputs = (event) => {
+            const formElement = event.target;
+            //Obtengo los datos del formulario
+            const formData = new FormData(formElement);
+            //Obtengo el array de los asientos
+            const checkboxes = formData.getAll('seat')
+            //Obtengo el resto de inputs
+            const radios = Object.fromEntries(formData);
+            //Combino ambos objetos
+            const schedules_seats = {
+                ...radios,
+                seat: checkboxes
+            }
+            //Actualizo el estado conservando lo anterior
+            const newState = {
+                ...ticket,
+                schedules_seats
+            }
+    
+            setTicket(newState)
+            return true
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        validateCheckbox()
-
-        const formElement = event.target;
-        //Obtengo los datos del formulario
-        const formData = new FormData(formElement);
-        //Obtengo el array de los asientos
-        const checkboxes = formData.getAll('seat')
-        //Obtengo el resto de inputs
-        const radios = Object.fromEntries(formData);
-        //Combino ambos objetos
-        const schedules_seats = {
-            ...radios,
-            seat: checkboxes
+        if (validateCheckbox()) {
+            if (getDataInputs(event)) {
+                navigate(`/schedules/${id}/pay`)
+            }
         }
-        //Actualizo el estado conservando lo anterior
-        const newState = {
-            ...ticket,
-            schedules_seats
-        }
-
-        setTicket(newState)
     }
 
     return (
@@ -147,7 +158,7 @@ const Schedules = () => {
                 transition={{ delay: .1, duration: .2 }}
                 className="seats-schedules"
             >
-                    <form id='form' onSubmit={(e) => handleSubmit(e)}>
+                    <form id='form' onSubmit={handleSubmit}>
                             <div className='seats'>
                                 <div className='seats__header'>
                                     <BtnBack 
@@ -210,7 +221,7 @@ const Schedules = () => {
                                     (<span>Selecciona alguna fecha</span>)
                                 }
                             </div>
-                    
+                        
                             <button className='btn-pay' type='submit' value='submit' >Pagar</button>
                         </motion.div>
                         

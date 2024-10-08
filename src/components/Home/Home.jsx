@@ -19,7 +19,8 @@ const Home = () => {
                 className="container">
                 <div className="header">
                     <div className="header__logo">
-                        <span>Cineteca Logo</span>
+                        <i className="fa-solid fa-ticket"></i>
+                        <span>Cineland</span>
                     </div>
                     <h2 className='header__title'>Cartelera</h2>
                 </div>      

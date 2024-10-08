@@ -18,9 +18,13 @@
             align-items: center;
             padding: 2rem 0;
             gap: .6rem;
+            i { 
+                color: #fff;
+                font-size: 2rem;
+            }
             span {
                 color: #fff;
-                font-size: 1.2rem;
+                font-size: 2rem;
                 font-weight: 500;
             }
         }

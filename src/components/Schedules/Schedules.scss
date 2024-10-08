@@ -4,12 +4,11 @@
     .seats {
         background: linear-gradient(rgb(106, 53, 204), #8e35cc);
         border-radius: 3rem 3rem 0 0;
-        height: 80vh;
+        height: 60vh;
         position: fixed;
         width: 100%;
         top: 0;
         z-index: 1;
-        animation: rebote .8s ease;
 
         &__header {
             display: flex;
@@ -71,7 +70,6 @@
         border-radius: 3rem 3rem 0 0;
         position: relative;
         z-index: 2;
-        animation: rebote .9s ease;
         .dates, .times {
             display: flex;
             flex-direction: row;
@@ -85,11 +83,13 @@
     }
 
     .btn-pay {
+        height: 50px;
         width: 100%;
         margin: 0 auto;
         color: #fff;
         margin-top: 1rem;
-        background-color: #1c1c46;
+        background-color: hsl(278, 68%, 11%);
+
         @media (width > 768px) {
             width: inherit;
         }
