@@ -20,7 +20,7 @@ const Home = () => {
                 <div className="header">
                     <div className="header__logo">
                         <i className="fa-solid fa-ticket"></i>
-                        <span>Cineland</span>
+                        <span>Cinema</span>
                     </div>
                     <h2 className='header__title'>Cartelera</h2>
                 </div>      

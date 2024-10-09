@@ -122,15 +122,11 @@ const Schedules = () => {
             const formElement = event.target;
             //Obtengo los datos del formulario
             const formData = new FormData(formElement);
-            //Obtengo el array de los asientos
-            const checkboxes = formData.getAll('seat')
+            // //Obtengo el array de los asientos
+            // const checkboxes = formData.getAll('seat')
             //Obtengo el resto de inputs
-            const radios = Object.fromEntries(formData);
-            //Combino ambos objetos
-            const schedules_seats = {
-                ...radios,
-                seat: checkboxes
-            }
+            const schedules_seats = Object.fromEntries(formData);
+            
             //Actualizo el estado conservando lo anterior
             const newState = {
                 ...ticket,

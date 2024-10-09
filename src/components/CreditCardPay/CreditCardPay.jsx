@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { TicketContext } from '../../context/ticket';
 import BtnBack from '../BtnBack/BtnBack'
 import CardFront from './../../assets/images/bg-card-front.png'
@@ -14,7 +14,7 @@ import './CreditCardPay.scss'
 const CreditCardPay = () => {
     const { id } = useParams();
     const {ticket, setTicket} = useContext(TicketContext)
-
+    const navigate = useNavigate()
     
     /* --- Funciones para validar cada input --- */
 
@@ -123,6 +123,9 @@ const CreditCardPay = () => {
             status: 'success'
         }
         setTicket(updateTicket)
+        setTimeout(() => {
+            navigate(`/schedules/${id}/ticket`)
+        }, 1000)
     }
 
     const handleSubmit = (event) => {
@@ -156,9 +159,10 @@ const CreditCardPay = () => {
                     spinner.style.display = 'none'
                     submit.classList.add('submit-success')
                     check.classList.add('check-effect')
-                    
                     successPay()
-                }, 4000)
+                }, 2000)
+
+                
 
             } else {
                 submit.classList.toggle('loading')
@@ -166,9 +170,6 @@ const CreditCardPay = () => {
             }
         }
     }
-
-
-
     return (
         <AnimatePresence>
             <motion.div 
@@ -179,8 +180,8 @@ const CreditCardPay = () => {
                 transition={{ delay: .1, duration: .2 }}
                 >
                 <div className="creditcard-pay__data">
-                    <BtnBack href={`/schedules/${id}`}
-                                        />
+                    <BtnBack href={`/schedules/${id}`}/>
+
                     <div className="card">
                         <div className="card__back">
                             <span className="datacard card__back__number" data-sort="5">000</span>
