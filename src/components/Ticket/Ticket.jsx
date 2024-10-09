@@ -1,13 +1,28 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext } from 'react';
 import { TicketContext } from '../../context/ticket';
+import html2canvas from "html2canvas";
 
 import BtnClose from "../BtnClose/BtnClose";
 import './Ticket.scss'
 
 const Ticket = () => {
     const { ticket } = useContext(TicketContext)
-    console.log(ticket);
+
+    const handleImageDownload = async() => {
+        const element = document.getElementById('ticket-print'),
+        canvas = await html2canvas(element),
+        data = canvas.toDataURL('image/jpg'),
+        link = document.createElement('a');
+
+        link.href = data;
+        link.download = 'downloaded-image.jpg';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     return (
         <AnimatePresence>
             <motion.div 
@@ -30,7 +45,7 @@ const Ticket = () => {
                     transition={{ delay: .2, duration: .3 }}
                     >
 
-                    <div className="cardWrap">
+                    <div id="ticket-print" className="cardWrap">
                         <div className="card cardLeft">
                             <h1><span>Cinema</span></h1>
                             <div className="title">
@@ -60,7 +75,7 @@ const Ticket = () => {
                             <div className="barcode"></div>
                         </div>
                     </div>
-                    <button className="btn-download">Descargar</button>
+                    <button className="btn-download" onClick={handleImageDownload} >Descargar</button>
                 </motion.div>
             </motion.div>
         </AnimatePresence>
