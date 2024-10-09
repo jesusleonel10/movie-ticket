@@ -5,7 +5,7 @@ import BtnBack from '../BtnBack/BtnBack';
 import Seat from '../Seat/Seat';
 import CheckItem from '../CheckItem/CheckItem';
 import uniqid from 'uniqid'
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Schedules.scss'
 
 const Schedules = () => {
@@ -151,6 +151,7 @@ const Schedules = () => {
     }
 
     return (
+        <AnimatePresence>
             <motion.div 
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -184,8 +185,8 @@ const Schedules = () => {
                             </div>
                             
                             <motion.div 
-                                initial={{ y: 100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
+                                initial={{ y: 100 }}
+                                animate={{ y: 0 }}
                                 exit={{ y: window.innerHeight }}
                                 transition={{ delay: .2, duration: .3 }}
                                 className='schedules'>
@@ -222,11 +223,12 @@ const Schedules = () => {
                                 }
                             </div>
                         
-                            <button className='btn-pay' type='submit' value='submit' >Pagar</button>
+                            <button className='btn-pay' type='submit' value='submit' >Confirmar</button>
                         </motion.div>
                         
                 </form>
             </motion.div>
+        </AnimatePresence>
     );
 }
  

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { TicketContext } from '../../context/ticket';
 import BtnBack from '../BtnBack/BtnBack'
@@ -7,6 +7,7 @@ import CardBack from './../../assets/images/bg-card-back.png'
 import Logo from './../../assets/images/card-logo.svg'
 import { checkEmpty, checkRegex, showError, showSuccess } from './../../functions/validationInputs'
 import uniqid from 'uniqid';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import './CreditCardPay.scss'
 
@@ -20,7 +21,7 @@ const CreditCardPay = () => {
     const checkName = (input) => {
         const cardNameValue = input.value.trim()
         if (!checkEmpty(input.value)) {
-            showError(input, 'No puede estar vacio')
+            showError(input, 'No puede estar vacío')
         } else if (!checkRegex(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/, cardNameValue)) {
             showError(input, 'Solamente Letras')
         } else if (cardNameValue.length <= 5 || cardNameValue.length > 18) {
@@ -34,7 +35,7 @@ const CreditCardPay = () => {
     const checkNumberCard = (input) => {
         const cardNumberValue = input.value.replace(/ /g,'')
         if (!checkEmpty(input.value)) {
-            showError(input, 'No puede estar vacio')
+            showError(input, 'No puede estar vacío')
         } else if (!checkRegex(/^[0-9]+$/, cardNumberValue)) {
             showError(input, 'Solamente Números')
         } else if (cardNumberValue.length != 16) {
@@ -48,7 +49,7 @@ const CreditCardPay = () => {
     const checkDateMM = (input) => {
         const cardDatemmValue = input.value.replace(/ /g,'')
         if (!checkEmpty(input.value)) {
-            showError(input, 'No puede estar vacio')
+            showError(input, 'No puede estar vacío')
         } else if (!checkRegex(/^[0-9]+$/, cardDatemmValue)) {
             showError(input, 'Solamente Números')
         } else if (cardDatemmValue.length != 2) {
@@ -64,7 +65,7 @@ const CreditCardPay = () => {
     const checkDateYY = (input) => {
         const cardDateyyValue = input.value.replace(/ /g,'')
         if (!checkEmpty(input.value)) {
-            showError(input, 'No puede estar vacio')
+            showError(input, 'No puede estar vacío')
         } else if (!checkRegex(/^[0-9]+$/, cardDateyyValue)) {
             showError(input, 'Solamente Números')
         } else if (cardDateyyValue.length != 2) {
@@ -80,7 +81,7 @@ const CreditCardPay = () => {
     const checkDateCvc = (input) => {
         const cardCvcValue = input.value.replace(/ /g,'')
         if (!checkEmpty(input.value)) {
-            showError(input, 'No puede estar vacio')
+            showError(input, 'No puede estar vacío')
         } else if (!checkRegex(/^[0-9]+$/, cardCvcValue)) {
             showError(input, 'Solamente Números')
         } else if (cardCvcValue.length != 3) {
@@ -115,6 +116,14 @@ const CreditCardPay = () => {
         })
     }
 
+    const successPay = () => {
+        const updateTicket = {
+            ...ticket,
+            idPay: uniqid(),
+            status: 'success'
+        }
+        setTicket(updateTicket)
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -151,13 +160,6 @@ const CreditCardPay = () => {
                     successPay()
                 }, 4000)
 
-                // //El boton submit vuelve a su tamaño, oculto el form y muestro tarjeta añadida
-                // setTimeout(() => submit.classList.toggle('loading'), 2500)
-                // setTimeout(() => {
-                //     formCard.classList.add('hidden')
-                //     cardAdd.classList.add('show')
-                // } , 3000)
-                
             } else {
                 submit.classList.toggle('loading')
                 spinner.style.display = 'none'
@@ -165,75 +167,79 @@ const CreditCardPay = () => {
         }
     }
 
-    const successPay = () => {
-        
-        const updateTicket = {
-            ...ticket,
-            idPay: uniqid(),
-            status: 'success'
-        }
-        setTicket(updateTicket)
-    }
 
-    console.log(ticket);
 
     return (
-        <div className="creditcard-pay">
-            <div className="creditcard-pay__data">
-                <BtnBack href={`/schedules/${id}`}
-                                    />
-                <div className="card">
-                    <div className="card__back">
-                        <span className="datacard card__back__number" data-sort="5">000</span>
-                        <img className='cardimgback' src={CardBack} alt="Credit card back" />
-                    </div>
-                    <div className="card__front">
-                        <img className='cardimgfront' src={CardFront} alt="Credit card front" />
-                        <img className='logo' src={Logo} alt="Logo credit card" />
-                        <div className="card__front-info">
-                            <span className="datacard card__front-info__number" data-sort="1">0000 0000 0000 0000</span>
-                            <span className="datacard card__front-info__name" data-sort="2">Nombre y Apellido</span>
-                            <div className="card__front-info__date">
-                                <span className='datacard ' data-sort="3">00</span>
-                                /
-                                <span className='datacard ' data-sort="4">00</span>
+        <AnimatePresence>
+            <motion.div 
+                className="creditcard-pay"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: window.innerHeight }}
+                transition={{ delay: .1, duration: .2 }}
+                >
+                <div className="creditcard-pay__data">
+                    <BtnBack href={`/schedules/${id}`}
+                                        />
+                    <div className="card">
+                        <div className="card__back">
+                            <span className="datacard card__back__number" data-sort="5">000</span>
+                            <img className='cardimgback' src={CardBack} alt="Credit card back" />
+                        </div>
+                        <div className="card__front">
+                            <img className='cardimgfront' src={CardFront} alt="Credit card front" />
+                            <img className='logo' src={Logo} alt="Logo credit card" />
+                            <div className="card__front-info">
+                                <span className="datacard card__front-info__number" data-sort="1">0000 0000 0000 0000</span>
+                                <span className="datacard card__front-info__name" data-sort="2">Nombre y Apellido</span>
+                                <div className="card__front-info__date">
+                                    <span className='datacard ' data-sort="3">00</span>
+                                    /
+                                    <span className='datacard ' data-sort="4">00</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="creditcard-pay__form">
-                <form id="form" onSubmit={handleSubmit}>
-                    <label className="formcard__labels" htmlFor="card-name">Titular de la Tarjeta</label>
-                    <input className="formcard__inputs" type="text" name="cardname" id="card-name" placeholder="e.g. Jane Appleseed" maxLength="24" data-sort="2" onChange={handleChange} />
-                    <span className="error" data-sort="2">Solamente deben ser letras</span>
-    
-                    <label className="formcard__labels" htmlFor="card-number">Numero de la Tarjeta</label>
-                    <input className="formcard__inputs" type="text" name="cardnumber" id="card-number" placeholder="e.g. 1234 5678 9123 0000" data-sort="1" maxLength="19" data-mask="0000 0000 0000 0000" onChange={handleChange} />
-                    <span className="error" data-sort="1">Solamente deben ser numeros</span>
+                <motion.div 
+                    className="creditcard-pay__form"
+                    initial={{ y: 100 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: window.innerHeight }}
+                    transition={{ delay: .2, duration: .3 }}
+                    >
+                    <form id="form" onSubmit={handleSubmit}>
+                        <label className="formcard__labels" htmlFor="card-name">Titular de la Tarjeta</label>
+                        <input className="formcard__inputs" type="text" name="cardname" id="card-name" placeholder="e.g. Jane Appleseed" maxLength="24" data-sort="2" onChange={handleChange} />
+                        <span className="error" data-sort="2">Solamente deben ser letras</span>
+        
+                        <label className="formcard__labels" htmlFor="card-number">Número de la Tarjeta</label>
+                        <input className="formcard__inputs" type="text" name="cardnumber" id="card-number" placeholder="e.g. 1234 5678 9123 0000" data-sort="1" maxLength="19" data-mask="0000 0000 0000 0000" onChange={handleChange} />
+                        <span className="error" data-sort="1">Solamente deben ser numeros</span>
+                        
+                        
+                        <label className="formcard__labels" htmlFor="card-date__mm">Fecha Exp. (MM/YY)</label>
+                        <input className="formcard__inputs" type="text" name="datemm" id="card-date__mm" placeholder="MM" maxLength="2" data-sort="3" data-mask="00" onChange={handleChange} />
+                        <span className="error" data-sort="4">No puede estar en blanco</span>
+                        <input className="formcard__inputs" type="text" name="dateyy" id="card-date__yy" placeholder="YY" maxLength="2" data-sort="4" data-mask="00" onChange={handleChange} />
+                        <span className="error" data-sort="3">No puede estar en blanco</span>
                     
                     
-                    <label className="formcard__labels" htmlFor="card-date__mm">Fecha Exp. (MM/YY)</label>
-                    <input className="formcard__inputs" type="text" name="datemm" id="card-date__mm" placeholder="MM" maxLength="2" data-sort="3" data-mask="00" onChange={handleChange} />
-                    <span className="error" data-sort="4">No puede estar en blanco</span>
-                    <input className="formcard__inputs" type="text" name="dateyy" id="card-date__yy" placeholder="YY" maxLength="2" data-sort="4" data-mask="00" onChange={handleChange} />
-                    <span className="error" data-sort="3">No puede estar en blanco</span>
-                
-                
-                    <label className="formcard__labels" htmlFor="card-cvc">CVC</label>
-                    <input className="formcard__inputs" type="text" name="cardcvc" id="card-cvc" placeholder="e.g. 123" maxLength="3" data-sort="5" data-mask="000" onChange={handleChange} />
-                    <span className="error" data-sort="5">No puede estar en blanco</span>
-    
-                    <div className="formcard__submit">
-                    <button id="submit" className="submit" type="submit">
-                        <span className="confirm">Confirmar</span>
-                        <i className="check-success fa-solid fa-check"></i>
-                        <span className="spinner"></span>
-                    </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                        <label className="formcard__labels" htmlFor="card-cvc">CVC</label>
+                        <input className="formcard__inputs" type="text" name="cardcvc" id="card-cvc" placeholder="e.g. 123" maxLength="3" data-sort="5" data-mask="000" onChange={handleChange} />
+                        <span className="error" data-sort="5">No puede estar en blanco</span>
+        
+                        <div className="formcard__submit">
+                        <button id="submit" className="submit" type="submit">
+                            <span className="confirm">Confirmar</span>
+                            <i className="check-success fa-solid fa-check"></i>
+                            <span className="spinner"></span>
+                        </button>
+                        </div>
+                    </form>
+                </motion.div>
+            </motion.div>
+        </AnimatePresence>
     );
 }
  

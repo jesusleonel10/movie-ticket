@@ -102,8 +102,7 @@
             column-gap: .8rem;
             padding: 2rem 1rem;
             min-width: 20.1rem;
-            input,
-            button {
+            input {
                 all: unset;
                 height: 3rem;
                 user-select: none;
@@ -267,7 +266,7 @@
             .submit {
                 position: relative;
                 left:0;
-                height: 50px;
+                margin-top: 1rem;
                 width: 100%;
                 background-image: none;
                 outline: none;

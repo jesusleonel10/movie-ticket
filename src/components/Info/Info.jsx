@@ -44,8 +44,8 @@ const Info = () => {
                     </div>
 
                     <motion.div 
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
+                        initial={{ y: 100 }}
+                        animate={{ y: 0 }}
                         exit={{ y: window.innerHeight }}
                         transition={{ delay: .2, duration: .3 }}
                         className='movie-info__details'>
