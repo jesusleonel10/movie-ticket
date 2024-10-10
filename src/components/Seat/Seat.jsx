@@ -6,7 +6,7 @@ const Seat = ({id, available}) => {
     return (
         <>
             <label className='hidden-visually' htmlFor={id}></label>
-            <input className='check' type="checkbox" name="seat" id={id} value={id} disabled={available ? null : 'disabled'} />
+            <input className='check' type="radio" name="seat" id={id} value={id} disabled={available ? null : 'disabled'} />
         </>
     );
 }

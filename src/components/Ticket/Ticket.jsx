@@ -1,13 +1,22 @@
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext } from 'react';
 import { TicketContext } from '../../context/ticket';
 import html2canvas from "html2canvas";
+import confetti from "canvas-confetti";
 
 import BtnClose from "../BtnClose/BtnClose";
 import './Ticket.scss'
 
 const Ticket = () => {
     const { ticket } = useContext(TicketContext)
+
+    useEffect(() => {
+        confetti({
+            particleCount: 150,
+            spread: 60
+          });
+    }, []);
 
     const handleImageDownload = async() => {
         const element = document.getElementById('ticket-print'),
@@ -16,7 +25,7 @@ const Ticket = () => {
         link = document.createElement('a');
 
         link.href = data;
-        link.download = 'downloaded-image.jpg';
+        link.download = 'ticket-cinema.jpg';
 
         document.body.appendChild(link);
         link.click();
@@ -32,10 +41,11 @@ const Ticket = () => {
                 exit={{ y: window.innerHeight }}
                 transition={{ delay: .1, duration: .2 }}
                 >
-                <div className="ticket__img">
+                <div className="ticket__header">
                     <BtnClose href={'/'} />
-
-                    
+                    <i className="fa-solid fa-ticket"></i>
+                    <span>Cinema</span>
+                    <h2 className="thankyou">¡Gracias por su compra!</h2>
                 </div>
                 <motion.div 
                     className="ticket__button"

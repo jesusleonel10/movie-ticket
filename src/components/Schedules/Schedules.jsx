@@ -100,30 +100,20 @@ const Schedules = () => {
 
     const navigate = useNavigate()
 
-    const validateCheckbox = () => {
-        const checkboxs = document.querySelectorAll('input[type="checkbox"]')
-        let selected = false
+    const validateSeats = () => {
+        const inputRadio = document.querySelector('[name="seat"]:checked')
 
-        checkboxs.forEach(checkbox => {
-            if(checkbox.checked) {
-                selected = true
-            }
-        })
-        
-        if (!selected) {
-            alert('Debe seleccionar un asiento')
-            return false
+        if(!inputRadio) {
+            alert('Debes seleccionar un asiento')
+            return false;
         }
-
-        else return true
+        return true
     }
 
     const getDataInputs = (event) => {
             const formElement = event.target;
             //Obtengo los datos del formulario
             const formData = new FormData(formElement);
-            // //Obtengo el array de los asientos
-            // const checkboxes = formData.getAll('seat')
             //Obtengo el resto de inputs
             const schedules_seats = Object.fromEntries(formData);
             
@@ -139,7 +129,7 @@ const Schedules = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (validateCheckbox()) {
+        if (validateSeats()) {
             if (getDataInputs(event)) {
                 navigate(`/schedules/${id}/pay`)
             }
@@ -189,7 +179,7 @@ const Schedules = () => {
                             <h4>Fecha</h4>
                             <div className="dates">
                                 {
-                                    theater && theater.dates.map((d) => {
+                                    (theater && theater.dates.map((d) => {
                                         return <CheckItem 
                                                     key={uniqid()}
                                                     id={d.id}
@@ -199,7 +189,7 @@ const Schedules = () => {
                                                     timesSelected={timesSelected}
                                                     setTimesSelected={setTimesSelected}
                                                 />
-                                    })
+                                    }))
                                 }
                             </div>
                             <h4>Hora</h4>
