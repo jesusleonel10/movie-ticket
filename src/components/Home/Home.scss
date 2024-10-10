@@ -9,8 +9,6 @@
         top: 0;
         z-index: 1;
         border-radius: 3rem 3rem 0 0;
-        // animation: rebote .8s ease;
-
     
         &__logo {
             display: flex;
@@ -47,6 +45,13 @@
         padding: 1.8rem;
         z-index: 2;
         animation: rebote .9s ease;
+
+        .credits-tmdb {
+            color: #5a5a5a;
+            font-style: italic;
+            font-weight: 300;
+            grid-column: 1 / -1;
+        }
 
         @media (max-width: 768px) {
             grid-template-columns: repeat(auto-fit, 9rem);

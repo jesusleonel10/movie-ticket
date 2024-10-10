@@ -66,7 +66,10 @@ const Info = () => {
                                     <Cast
                                         idMovie={id}
                                     />
-                                </div>
+                            </div>
+                            <div className="credits-tmdb">
+                                Datos obtenidos por <strong><a href="https://www.themoviedb.org/">TMDB</a></strong>
+                            </div>  
                             <NavLink to={`/schedules/${id}`}>
                                 <button className='movie-info__btn' onClick={() => handleClick(id, data.title, formatTime(data.runtime))} >Comprar Boleto</button>
                             </NavLink>
